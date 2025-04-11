@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;                   //Check!
+//using System.Collections.Generic;                   //Check!
 
 namespace Ex01_01
 {
@@ -7,14 +7,6 @@ namespace Ex01_01
     {
 
         protected const int k_BinaryNumberLength = 7;
-
-        struct NumberDetails
-        {
-            public int decimalFormat;
-            public int numOfOnesSeries;
-            public int numOfTransitions;
-            public int numOfOnes;
-        }
 
         public static void GetInputFromUser(ref string[] io_numbers)
         {
