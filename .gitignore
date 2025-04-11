@@ -1,0 +1,71 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio for Mac
+.idea/
+*.userprefs
+
+# Rider
+.idea/
+
+# DotCover
+.idea/.idea.DotSettings
+
+# Backup & temp files
+*.bak
+*.tmp
+*.temp
+*.log
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET
+project.lock.json
+artifacts/
+
+# Entity Framework
+Migrations/
+
+# JetBrains Rider
+.idea/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# .NET Core
+project.lock.json
+project.assets.json
+*.dbmdl
+*.bak
+*.log
+
+# Local test results
+TestResults/
+
+# Others
+*.vspscc
+*.vssscc
+*.vs/
