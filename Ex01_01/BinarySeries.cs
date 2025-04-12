@@ -6,13 +6,13 @@ namespace Ex01_01
 {
     internal class BinarySeries
     {
-        public static Dictionary<string, NumberDetails> m_numbersDictionary = new Dictionary<string, NumberDetails>();
+        public static Dictionary<string, NumberDetails> m_NumbersDictionary = new Dictionary<string, NumberDetails>();
 
-        public static int m_longestSeriesOfOnesInARow = 0;
+        public static int m_LongestSeriesOfOnesInARow = 0;
         public static string m_NumberWithTheLongestSeriesOfOnesInRow;
         public static int m_TheBiggestTotalNumberOfOnes = 0;
         public static string m_NumberWithTheBiggestTotalNumberOfOnes;
-        public static int m_totalOnesInAllInputs = 0;
+        public static int m_TotalOnesInAllInputs = 0;
 
 
         protected const int k_BinaryNumberLength = 7;
@@ -42,7 +42,7 @@ Please enter 7 digits in a binary format"));
 
                     inputFromUser = Console.ReadLine();
                 }
-                m_numbersDictionary[inputFromUser] = new NumberDetails();
+                m_NumbersDictionary[inputFromUser] = new NumberDetails();
             }
         }
 
@@ -82,9 +82,9 @@ Please enter 7 digits in a binary format"));
 
         public static void AnalyzeNumbers()
         {
-            foreach (string binaryNumberString in m_numbersDictionary.Keys)
+            foreach (string binaryNumberString in m_NumbersDictionary.Keys)
             {
-                NumberDetails numberDetails = m_numbersDictionary[binaryNumberString];
+                NumberDetails numberDetails = m_NumbersDictionary[binaryNumberString];
 
                 int binaryNumberInt = int.Parse(binaryNumberString);
                 numberDetails.binaryFormat = binaryNumberInt;
@@ -105,7 +105,7 @@ Please enter 7 digits in a binary format"));
                     {
                         numberOfOnesInRow++;
                         totalNumOfOnesInNumber++;
-                        m_totalOnesInAllInputs++;
+                        m_TotalOnesInAllInputs++;
                         handleTransitionCount(ref currentTransitionCount, ref maxTransitionCount, ref previousDigit, currentBinaryDigit);
                         
                     }
@@ -116,9 +116,9 @@ Please enter 7 digits in a binary format"));
                         handleTransitionCount(ref currentTransitionCount, ref maxTransitionCount, ref previousDigit, currentBinaryDigit);
                     }
 
-                    if (numberOfOnesInRow > m_longestSeriesOfOnesInARow)
+                    if (numberOfOnesInRow > m_LongestSeriesOfOnesInARow)
                     {
-                        m_longestSeriesOfOnesInARow = numberOfOnesInRow;
+                        m_LongestSeriesOfOnesInARow = numberOfOnesInRow;
                         m_NumberWithTheLongestSeriesOfOnesInRow = binaryNumberString;
                     }
 
@@ -181,7 +181,7 @@ Please enter 7 digits in a binary format"));
 
         public static List<KeyValuePair<string, NumberDetails>>  SortDictionary()
         {
-            List<KeyValuePair<string, NumberDetails>> sortedList = new List<KeyValuePair<string, NumberDetails>>(m_numbersDictionary);
+            List<KeyValuePair<string, NumberDetails>> sortedList = new List<KeyValuePair<string, NumberDetails>>(m_NumbersDictionary);
             sortedList.Sort((pair1, pair2) =>
                 pair2.Value.decimalFormat.CompareTo(pair1.Value.decimalFormat));
 
@@ -194,12 +194,12 @@ Please enter 7 digits in a binary format"));
             PrintAverageValueDecimal();
 
             Console.WriteLine("The number with the longest series of ones in a row is: {0}. The length of its series is {1}",
-                m_NumberWithTheLongestSeriesOfOnesInRow, m_longestSeriesOfOnesInARow);
+                m_NumberWithTheLongestSeriesOfOnesInRow, m_LongestSeriesOfOnesInARow);
 
             PrintTransitionsPerNumber();
             
             Console.WriteLine("The number with the most ones: " + m_NumberWithTheBiggestTotalNumberOfOnes);
-            Console.WriteLine("Total amount of ones in the input is: " + m_totalOnesInAllInputs);
+            Console.WriteLine("Total amount of ones in the input is: " + m_TotalOnesInAllInputs);
         }
 
 
@@ -213,19 +213,19 @@ Please enter 7 digits in a binary format"));
         {
             float sum = 0;
 
-            foreach (string key in m_numbersDictionary.Keys)
+            foreach (string key in m_NumbersDictionary.Keys)
             {
-                sum += m_numbersDictionary[key].decimalFormat;
+                sum += m_NumbersDictionary[key].decimalFormat;
             }
 
-            return sum / m_numbersDictionary.Count;
+            return sum / m_NumbersDictionary.Count;
         }
 
         private static void PrintTransitionsPerNumber()
         {
-            foreach (string key in m_numbersDictionary.Keys)
+            foreach (string key in m_NumbersDictionary.Keys)
             {
-                Console.WriteLine("The number of transitions for the number {0} is: {1}", key, m_numbersDictionary[key].numOfTransitions);
+                Console.WriteLine("The number of transitions for the number {0} is: {1}", key, m_NumbersDictionary[key].numOfTransitions);
             }
         }
     }
