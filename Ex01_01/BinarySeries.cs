@@ -9,7 +9,7 @@ namespace Ex01_01
         public static Dictionary<string, NumberDetails> m_numbersDictionary = new Dictionary<string, NumberDetails>();
 
         public static int m_longestSeriesOfOnesInARow = 0;
-        public static string m_NumberOfTheLongestOfSeriesOfOnesInRow;
+        public static string m_NumberWithTheLongestSeriesOfOnesInRow;
         public static int m_TheBiggestTotalNumberOfOnes = 0;
         public static string m_NumberWithTheBiggestTotalNumberOfOnes;
         public static int m_totalOnesInAllInputs = 0;
@@ -119,7 +119,7 @@ Please enter 7 digits in a binary format"));
                     if (numberOfOnesInRow > m_longestSeriesOfOnesInARow)
                     {
                         m_longestSeriesOfOnesInARow = numberOfOnesInRow;
-                        m_NumberOfTheLongestOfSeriesOfOnesInRow = binaryNumberString;
+                        m_NumberWithTheLongestSeriesOfOnesInRow = binaryNumberString;
                     }
 
                     if (totalNumOfOnesInNumber > m_TheBiggestTotalNumberOfOnes)
@@ -171,7 +171,7 @@ Please enter 7 digits in a binary format"));
         {
             List<KeyValuePair<string, NumberDetails>> sortedList = SortDictionary();
 
-            Console.WriteLine(Environment.NewLine + "The decimal values of the input numbers is: ");
+            Console.WriteLine(Environment.NewLine + "The decimal values of the input numbers are: ");
 
             foreach (var pair in sortedList)
             {
@@ -193,12 +193,12 @@ Please enter 7 digits in a binary format"));
         {
             PrintAverageValueDecimal();
 
-            Console.WriteLine("The number of the Longest series of ones in a row is: {0}. The length of his series is {1}",
-                m_NumberOfTheLongestOfSeriesOfOnesInRow, m_longestSeriesOfOnesInARow);
+            Console.WriteLine("The number with the longest series of ones in a row is: {0}. The length of its series is {1}",
+                m_NumberWithTheLongestSeriesOfOnesInRow, m_longestSeriesOfOnesInARow);
 
             PrintTransitionsPerNumber();
             
-            Console.WriteLine("The number with the largest number of ones: " + m_NumberWithTheBiggestTotalNumberOfOnes);
+            Console.WriteLine("The number with the most ones: " + m_NumberWithTheBiggestTotalNumberOfOnes);
             Console.WriteLine("Total amount of ones in the input is: " + m_totalOnesInAllInputs);
         }
 
