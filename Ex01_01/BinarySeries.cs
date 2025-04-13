@@ -29,7 +29,7 @@ namespace Ex01_01
 
                 while (!isBinaryInputValid(userInput))
                 {
-                    Console.WriteLine("Invalid input. Please enter exactly {0} binary digits (0 or 1):", Program.k_BinaryNumberLength);
+                    Console.Write("Invalid input. Please enter exactly {0} binary digits (0 or 1): ", Program.k_BinaryNumberLength);
                     userInput = Console.ReadLine();
                 }
 
