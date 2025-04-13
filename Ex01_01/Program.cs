@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-
 
 namespace Ex01_01
 {
     internal class Program
     {
+        public const int k_BinaryNumberLength = 7;
+        public const int k_NumberOfInputs = 4;
+
         public static void Main()
         {
-            const int numOfInputs = 4;
-            BinarySeries.Run(numOfInputs);
+            BinarySeries.Run();
         }
     }
 }
