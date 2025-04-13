@@ -4,55 +4,217 @@ namespace Ex01_01
 {
     internal class BinarySeries
     {
-        protected const int k_NumOfInputs = 4;
-        protected const int k_BinaryNumberLength = 7;
-        public static void GetInputFromUser(ref int[] numbers)
+        private static Number[] s_InputNumbers = new Number[Program.k_NumberOfInputs];
+        private static int s_TotalOnesAcrossAllNumbers = 0;
+        private static Number s_NumberWithLongestOnesSequence = null;
+        private static Number s_NumberWithMostOnes = null;
+
+        public static void Run()
         {
-            String newLine = Environment.NewLine;
-            Console.WriteLine("Please enter 4 numbers, 7 digits each, in a binary format");
+            Console.WriteLine("Please enter {0} binary numbers, each with exactly {1} digits:",
+                Program.k_NumberOfInputs, Program.k_BinaryNumberLength);
 
-            for (int i = 0; i < k_NumOfInputs; i++)
+            readUserInputs();
+            analyzeAllNumbers();
+            printDecimalValuesDescending();
+            printStatistics();
+        }
+
+        private static void readUserInputs()
+        {
+            for (int i = 0; i < Program.k_NumberOfInputs; i++)
             {
-                // Check if the input is: 
-                // 1- a number
-                // 2- binary
-                // 3- length of 7 digits
-                String inputFromUser = Console.ReadLine();
+                Console.Write("Enter binary number #{0}: ", i + 1);
+                string userInput = Console.ReadLine();
 
-                while (int.TryParse(inputFromUser, out numbers[i]) == false)
+                while (!isBinaryInputValid(userInput))
                 {
-                    Console.WriteLine(string.Format(
-@"Invalid input.
-Please enter 4 numbers, 7 digits each, in a binary format"));
+                    Console.Write("Invalid input. Please enter exactly {0} binary digits (0 or 1): ", Program.k_BinaryNumberLength);
+                    userInput = Console.ReadLine();
                 }
+
+                Number parsedNumber = new Number();
+                parsedNumber.m_BinaryNumberString = userInput;
+                parsedNumber.m_binaryFormat = int.Parse(userInput);
+
+                s_InputNumbers[i] = parsedNumber;
             }
         }
 
-        public static void ConvertBinaryToDecimal(ref int[] numbers)
+        private static bool isBinaryInputValid(string i_BinaryString)
         {
-
-            for (int i = 0; i < k_NumOfInputs; i++)
+            bool isValid = true;
+            if (i_BinaryString.Length != Program.k_BinaryNumberLength)
             {
-                int decimalNumber = 0;
+                isValid = false;
+            }
 
-                for (int j = 0; j < k_BinaryNumberLength; j++)
+            for (int i = 0; i < i_BinaryString.Length; i++)
+            {
+                if (i_BinaryString[i] != '0' && i_BinaryString[i] != '1')
                 {
-                    int digit = numbers[i] % 10;
-                    digit = digit * (int)Math.Pow(2, j);
-
-                    decimalNumber += digit;
-                    numbers[i] /= 10;
+                    isValid = false;
                 }
+            }
 
-                numbers[i] = decimalNumber;
+            return isValid;
+        }
+
+        private static void analyzeAllNumbers()
+        {
+            for (int i = 0; i < s_InputNumbers.Length; i++)
+            {
+                analyzeSingleNumber(s_InputNumbers[i]);
             }
         }
 
-        public static void PrintNumbers(ref int[] numbers)
+        private static void analyzeSingleNumber(Number io_Number)
         {
-            for (int i = 0; i < k_NumOfInputs; i++)
+            int remainingBinaryValue = io_Number.m_binaryFormat;
+            int decimalValue = 0;
+            int maxConsecutiveOnes = 0;
+            int currentConsecutiveOnes = 0;
+            int totalOnes = 0;
+            int transitionCount = 0;
+            int previousBit = -1;
+            int currentPower = 0;
+
+            for (int i = 0; i < Program.k_BinaryNumberLength; i++)
             {
-                Console.WriteLine(numbers[i]);
+                int currentBit = remainingBinaryValue % 10;
+
+                if (currentBit == 1)
+                {
+                    decimalValue += (int)Math.Pow(2, currentPower);
+                    currentConsecutiveOnes++;
+                    totalOnes++;
+
+                    if (currentConsecutiveOnes > maxConsecutiveOnes)
+                    {
+                        maxConsecutiveOnes = currentConsecutiveOnes;
+                    }
+                }
+                else
+                {
+                    currentConsecutiveOnes = 0;
+                }
+
+                if (previousBit != -1 && previousBit != currentBit)
+                {
+                    transitionCount++;
+                }
+
+                previousBit = currentBit;
+                remainingBinaryValue /= 10;
+                currentPower++;
+            }
+
+            io_Number.m_decimalFormat = decimalValue;
+            io_Number.m_numOfOnes = totalOnes;
+            io_Number.m_numOfOnesSeries = maxConsecutiveOnes;
+            io_Number.m_numOfTransitions = transitionCount;
+
+            s_TotalOnesAcrossAllNumbers += totalOnes;
+
+            if (s_NumberWithLongestOnesSequence == null ||
+                maxConsecutiveOnes > s_NumberWithLongestOnesSequence.m_numOfOnesSeries)
+            {
+                s_NumberWithLongestOnesSequence = io_Number;
+            }
+
+            if (s_NumberWithMostOnes == null ||
+                totalOnes > s_NumberWithMostOnes.m_numOfOnes)
+            {
+                s_NumberWithMostOnes = io_Number;
+            }
+        }
+
+        private static void printDecimalValuesDescending()
+        {
+            Number[] sortedNumbers = (Number[])s_InputNumbers.Clone();
+
+            for (int i = 0; i < sortedNumbers.Length - 1; i++)
+            {
+                int maxIndex = i;
+
+                for (int j = i + 1; j < sortedNumbers.Length; j++)
+                {
+                    if (sortedNumbers[j].m_decimalFormat > sortedNumbers[maxIndex].m_decimalFormat)
+                    {
+                        maxIndex = j;
+                    }
+                }
+
+                if (maxIndex != i)
+                {
+                    Number temp = sortedNumbers[i];
+                    sortedNumbers[i] = sortedNumbers[maxIndex];
+                    sortedNumbers[maxIndex] = temp;
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Decimal values of the binary numbers (sorted descending):");
+
+            for (int i = 0; i < sortedNumbers.Length; i++)
+            {
+                Console.WriteLine("{0} => {1}", sortedNumbers[i].m_BinaryNumberString, sortedNumbers[i].m_decimalFormat);
+            }
+        }
+
+        private static void printStatistics()
+        {
+            printAverageDecimalValue();
+            printNumberWithLongestOnesSeries();
+            printNumberWithMostOnes();
+            printTotalOnesInAllNumbers();
+            printTransitionsPerNumber();
+        }
+
+        private static void printAverageDecimalValue()
+        {
+            int sumOfDecimals = 0;
+
+            for (int i = 0; i < s_InputNumbers.Length; i++)
+            {
+                sumOfDecimals += s_InputNumbers[i].m_decimalFormat;
+            }
+
+            float average = (float)sumOfDecimals / s_InputNumbers.Length;
+
+            Console.WriteLine();
+            Console.WriteLine("Average decimal value: {0}", average);
+        }
+
+        private static void printNumberWithLongestOnesSeries()
+        {
+            Console.WriteLine("Number with the longest sequence of ones: {0} (length: {1})",
+                s_NumberWithLongestOnesSequence.m_BinaryNumberString,
+                s_NumberWithLongestOnesSequence.m_numOfOnesSeries);
+        }
+
+        private static void printNumberWithMostOnes()
+        {
+            Console.WriteLine("Number with the most ones: {0} (count: {1})",
+                s_NumberWithMostOnes.m_BinaryNumberString,
+                s_NumberWithMostOnes.m_numOfOnes);
+        }
+
+        private static void printTotalOnesInAllNumbers()
+        {
+            Console.WriteLine("Total number of ones in all inputs: {0}", s_TotalOnesAcrossAllNumbers);
+        }
+
+        private static void printTransitionsPerNumber()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Bit transitions per number:");
+
+            for (int i = 0; i < s_InputNumbers.Length; i++)
+            {
+                Console.WriteLine("{0} => {1} transitions",
+                    s_InputNumbers[i].m_BinaryNumberString,
+                    s_InputNumbers[i].m_numOfTransitions);
             }
         }
     }
