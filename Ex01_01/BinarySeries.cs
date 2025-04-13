@@ -43,20 +43,21 @@ namespace Ex01_01
 
         private static bool isBinaryInputValid(string i_BinaryString)
         {
+            bool isValid = true;
             if (i_BinaryString.Length != Program.k_BinaryNumberLength)
             {
-                return false;
+                isValid = false;
             }
 
             for (int i = 0; i < i_BinaryString.Length; i++)
             {
                 if (i_BinaryString[i] != '0' && i_BinaryString[i] != '1')
                 {
-                    return false;
+                    isValid = false;
                 }
             }
 
-            return true;
+            return isValid;
         }
 
         private static void analyzeAllNumbers()
