@@ -5,6 +5,7 @@ namespace Ex01_04
 {
     internal class StringAnalyzer
     {
+        private const int k_InputLength = 12;
         protected static bool s_IsPalindrome = true;
         protected static bool s_IsStringOnlyDigits = false;
         protected static bool s_IsNumberDividedBy3 = false;
@@ -19,10 +20,10 @@ namespace Ex01_04
 
             do
             {
-                Console.Write("Please enter string in length of 12: ");
+                Console.Write("Please enter string in length of {0}: ", k_InputLength);
                 userInput = Console.ReadLine();
 
-                if (userInput.Length != 12)
+                if (userInput.Length != k_InputLength)
                 {
                     isValid = false;
                     Console.WriteLine("Invalid input. Please try again.");
@@ -96,13 +97,13 @@ namespace Ex01_04
             isPalindrome(trimmedString);
         }
 
-        private static bool isSameLetter(char io_Letter1, char io_Letter2)
+        private static bool isSameLetter(char i_Letter1, char i_Letter2)
         {
             bool isSameLetter = true;
             char lowerChar1, lowerChar2;
 
-            lowerChar1 = char.ToLower(io_Letter1);
-            lowerChar2 = char.ToLower(io_Letter2);
+            lowerChar1 = char.ToLower(i_Letter1);
+            lowerChar2 = char.ToLower(i_Letter2);
 
             if (lowerChar1 != lowerChar2)
             {

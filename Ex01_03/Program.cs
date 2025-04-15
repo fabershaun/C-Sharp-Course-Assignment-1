@@ -7,8 +7,7 @@ namespace Ex01_03
     {
         public static void Main()
         {
-            int height = Tree.GetInputFromUser();
-            Tree.PrintTree(height);
+            Tree.PrintTree(Tree.GetInputFromUser());
         }
     }
 }
