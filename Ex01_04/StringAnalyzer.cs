@@ -47,7 +47,8 @@ namespace Ex01_04
 
             if (s_IsStringOnlyDigits == true)
             {
-                isNumberDividedBy3(io_Input);
+                long stringToNumber = long.Parse(io_Input);
+                s_IsNumberDividedBy3 = (stringToNumber % 3 == 0);
             }
             else if (s_IsStringOnlyLetter)
             {
@@ -109,17 +110,6 @@ namespace Ex01_04
             }
 
             return isSameLetter;
-        }
-
-        private static void isNumberDividedBy3(string io_InputString)
-        {
-            int sum = 0;
-            foreach (char digit in io_InputString)
-            {
-                sum += digit - '0';
-            }
-
-            s_IsNumberDividedBy3 = sum % 3 == 0;
         }
 
         private static void isAscendingAlphabeticalOrder(string io_InputString)
