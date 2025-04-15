@@ -1,7 +1,7 @@
 ﻿using System;
 using Ex01_02;
 
-namespace ex3
+namespace Ex01_03
 {
     internal class Program
     {
