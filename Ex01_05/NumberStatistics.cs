@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace Ex01_05
 {
     internal class NumberStatistics
     {
         private const int k_InputLength = 8;
+        protected static int s_FirstDigit = -1;
         protected static int s_NumberOfDigitsSmallerThanTheFirstDigit = 0;
         protected static int s_NumberOfDigitsDividedBy3 = 0;
         protected static int s_LargestDigit = 0;
@@ -14,7 +16,10 @@ namespace Ex01_05
         protected static int s_MostFrequentDigit;
         protected static int s_MostFrequentDigitCount;
 
+        protected static StringBuilder s_outputMessage = new StringBuilder();
 
+
+        /// The method gets the input from the user and checks if it is valid.
         public static string GetInput()
         {
             bool isValid = true;
@@ -43,52 +48,95 @@ namespace Ex01_05
             return userInput;
         }
 
+        /// The method prints the statistics result to the console.
         public static void PrintStatisticsResult()
         {
-            Console.WriteLine();
-            Console.WriteLine("The number of digits that smaller than the first digit is: {0}", s_NumberOfDigitsSmallerThanTheFirstDigit);
-            Console.WriteLine("The number of digits that divisible by 3 is: {0}", s_NumberOfDigitsDividedBy3);
-            Console.WriteLine("The difference between the max and the min digits is: {0}", s_DifferenceBetweenMaxAndMinDigit);
-            Console.WriteLine("The most frequent digit is: {0}. It appears {1} times", s_MostFrequentDigit, s_MostFrequentDigitCount);
+            Console.WriteLine(s_outputMessage);
         }
 
+        /// The method calculates the statistics of the input string.
         public static void CalculateStatistics(string i_input)
         {
+
             findNumberOfDigitsSmallerThanTheFirstDigit(i_input);
             findNumberOfDigitsDividedBy3(i_input);
             findDifferenceBetweenMaxAndMinDigit(i_input);
             findMostFrequentDigit(i_input);
         }
-
+        
+        /// The methos finds the first digit in the input string and counts how many digits are smaller than it.
         private static void findNumberOfDigitsSmallerThanTheFirstDigit(string i_input)
         {
-            char firstChar = i_input[0];
-            for(int i = 1; i < i_input.Length; i++)
+            s_FirstDigit = i_input[0] - '0';
+            
+            s_outputMessage.Append("The first digit is: ");
+            s_outputMessage.Append(s_FirstDigit.ToString());
+            s_outputMessage.Append(". The digits that smaller than the first digit are: ");
+
+            for (int i = 1; i < i_input.Length; i++)
             {
-                if (i_input[i] < firstChar)
+                if (i_input[i] - '0' < s_FirstDigit)
                 {
                     s_NumberOfDigitsSmallerThanTheFirstDigit++;
+                    s_outputMessage.Append(i_input[i]);
+                    s_outputMessage.Append(", ");
                 }
             }
+
+            if (s_NumberOfDigitsSmallerThanTheFirstDigit == 0)
+            {
+                s_outputMessage.Append("None");
+            }
+
+            else
+            {
+                s_outputMessage.Length -= 2; // Remove the last comma and space
+            }
+
+            s_outputMessage.Append(". Total: ");
+            s_outputMessage.AppendLine(s_NumberOfDigitsSmallerThanTheFirstDigit.ToString());
         }
 
+        /// The method finds the digits in the input string that are divided by 3 and counts them.
         private static void findNumberOfDigitsDividedBy3(string i_input)
         {
+            s_outputMessage.Append("The digits which divisible by 3 are: ");
+
             foreach (char digitChar in i_input)
             {
                 if ((digitChar - '0') % 3 == 0)
                 {
                     s_NumberOfDigitsDividedBy3++;
+                    s_outputMessage.Append(digitChar);
+                    s_outputMessage.Append(", ");
                 }
             }
+
+            if(s_NumberOfDigitsDividedBy3 == 0)
+            {
+                s_outputMessage.Append("None");
+            }
+            
+            else
+            {
+                s_outputMessage.Length -= 2;
+            }
+
+            s_outputMessage.Append(". ");
+            s_outputMessage.Append("Total: ");
+            s_outputMessage.AppendLine(s_NumberOfDigitsDividedBy3.ToString());
         }
 
+        /// The method finds the max and min digits in the input string and calculates the difference between them.
         private static void findDifferenceBetweenMaxAndMinDigit(string i_input)
         {
+            s_outputMessage.Append("The difference between the max and the min digits is: ");
             findMaxAndMinDigits(i_input);
             s_DifferenceBetweenMaxAndMinDigit = s_LargestDigit - s_SmallestDigit;
+            s_outputMessage.AppendLine(s_DifferenceBetweenMaxAndMinDigit.ToString());
         }
 
+        /// The method finds the max and min digits in the input string.
         private static void findMaxAndMinDigits(string i_input)
         {
             foreach (char digitChar in i_input)
@@ -106,10 +154,13 @@ namespace Ex01_05
             }
         }
 
+        /// The method finds the most frequent digit in the input string and counts how many times it appears.
         private static void findMostFrequentDigit(string i_Input)
         {
             int maxCount = 0;
             char mostFrequentDigit = '0';
+
+            s_outputMessage.Append("The most frequent digit is: ");
 
             for (char digit = '0'; digit <= '9'; digit++)
             {
@@ -132,6 +183,11 @@ namespace Ex01_05
 
             s_MostFrequentDigit = mostFrequentDigit - '0';
             s_MostFrequentDigitCount = maxCount;
+
+            s_outputMessage.Append(s_MostFrequentDigit.ToString());
+            s_outputMessage.Append(" (Appears ");
+            s_outputMessage.Append(s_MostFrequentDigitCount.ToString());
+            s_outputMessage.Append(" times).");
         }
 
     }
