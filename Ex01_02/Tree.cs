@@ -2,7 +2,7 @@
 
 namespace Ex01_02
 {
-    internal class Tree
+    public class Tree
     {
         public static void PrintTree(int i_Height)
         {
