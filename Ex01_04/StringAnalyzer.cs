@@ -5,24 +5,26 @@ namespace Ex01_04
 {
     internal class StringAnalyzer
     {
+        protected const int k_InputLength = 12;
         protected static bool s_IsPalindrome = true;
         protected static bool s_IsStringOnlyDigits = false;
         protected static bool s_IsNumberDividedBy3 = false;
         protected static bool s_IsStringOnlyLetter = false;
-        protected static int s_NumberOfCapitalLetters = 0;
         protected static bool s_AscendingAlphabeticalOrder = false;
+        protected static int s_NumberOfCapitalLetters = 0;
 
         public static string GetInput()
         {
             bool isValid = false;
             string userInput;
+            string startingMessage = string.Format("Please enter string in length of {0}: ", k_InputLength);
 
             do
             {
-                Console.Write("Please enter string in length of 12: ");
+                Console.Write(startingMessage);
                 userInput = Console.ReadLine();
 
-                if (userInput.Length != 12)
+                if (userInput.Length != k_InputLength)
                 {
                     isValid = false;
                     Console.WriteLine("Invalid input. Please try again.");
@@ -38,21 +40,22 @@ namespace Ex01_04
             return userInput;
         }
 
-        public static void StartAnalyzeInput(string io_Input)
+        public static void StartAnalyzeInput(string i_Input)
         {
-            isPalindrome(io_Input);
+            isPalindrome(i_Input);
 
-            s_IsStringOnlyDigits = io_Input.All(char.IsDigit);
-            s_IsStringOnlyLetter = io_Input.All(char.IsLetter);
+            s_IsStringOnlyDigits = i_Input.All(char.IsDigit);
+            s_IsStringOnlyLetter = i_Input.All(char.IsLetter);
 
             if (s_IsStringOnlyDigits == true)
             {
-                isNumberDividedBy3(io_Input);
+                long stringToNumber = long.Parse(i_Input);
+                s_IsNumberDividedBy3 = (stringToNumber % 3 == 0);
             }
             else if (s_IsStringOnlyLetter)
             {
-                s_NumberOfCapitalLetters = io_Input.Count(char.IsUpper);
-                isAscendingAlphabeticalOrder(io_Input);
+                s_NumberOfCapitalLetters = i_Input.Count(char.IsUpper);
+                isAscendingAlphabeticalOrder(i_Input);
             }
         }
 
@@ -77,31 +80,31 @@ namespace Ex01_04
             }
         }
 
-        private static void isPalindrome(string io_InputString)
+        private static void isPalindrome(string i_InputString)
         {
-            if (io_InputString.Length <= 1)
+            if (i_InputString.Length <= 1)
             {
                 s_IsPalindrome = true;
                 return;
             }
 
-            if (isSameLetter(io_InputString[0], io_InputString[io_InputString.Length - 1]) == false)
+            if (isSameLetter(i_InputString[0], i_InputString[i_InputString.Length - 1]) == false)
             {
                 s_IsPalindrome = false;
                 return;
             }
 
-            string trimmedString = io_InputString.Substring(1, io_InputString.Length - 2);
+            string trimmedString = i_InputString.Substring(1, i_InputString.Length - 2);
             isPalindrome(trimmedString);
         }
 
-        private static bool isSameLetter(char io_Letter1, char io_Letter2)
+        private static bool isSameLetter(char i_Letter1, char i_Letter2)
         {
             bool isSameLetter = true;
             char lowerChar1, lowerChar2;
 
-            lowerChar1 = char.ToLower(io_Letter1);
-            lowerChar2 = char.ToLower(io_Letter2);
+            lowerChar1 = char.ToLower(i_Letter1);
+            lowerChar2 = char.ToLower(i_Letter2);
 
             if (lowerChar1 != lowerChar2)
             {
@@ -111,25 +114,14 @@ namespace Ex01_04
             return isSameLetter;
         }
 
-        private static void isNumberDividedBy3(string io_InputString)
-        {
-            int sum = 0;
-            foreach (char digit in io_InputString)
-            {
-                sum += digit - '0';
-            }
-
-            s_IsNumberDividedBy3 = sum % 3 == 0;
-        }
-
-        private static void isAscendingAlphabeticalOrder(string io_InputString)
+        private static void isAscendingAlphabeticalOrder(string i_InputString)
         {
             s_AscendingAlphabeticalOrder = true;
-            io_InputString = io_InputString.ToLower();
+            i_InputString = i_InputString.ToLower();
 
-            for (int i = 1; i < io_InputString.Length; i++)
+            for (int i = 1; i < i_InputString.Length; i++)
             {
-                if (io_InputString[i] < io_InputString[i - 1])
+                if (i_InputString[i] < i_InputString[i - 1])
                 {
                     s_AscendingAlphabeticalOrder = false;
                     break;
