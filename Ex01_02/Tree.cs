@@ -21,6 +21,11 @@ namespace Ex01_02
             {
                 for (int i = 0; i < 2; i++)
                 {
+                    if (i_NumberToStart == 10)
+                    {
+                        i_NumberToStart = 1;
+                    }
+
                     Console.Write(i_RowLetter++);
                     Console.Write(new string(' ', i_NumberOfSpacesOriginal));
                     Console.WriteLine("|{0}|", i_NumberToStart);
