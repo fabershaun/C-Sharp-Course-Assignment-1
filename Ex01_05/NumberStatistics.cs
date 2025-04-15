@@ -5,7 +5,7 @@ namespace Ex01_05
 {
     internal class NumberStatistics
     {
-        private const int k_InputLength = 8;
+        protected const int k_InputLength = 8;
         protected static int s_NumberOfDigitsSmallerThanTheFirstDigit = 0;
         protected static int s_NumberOfDigitsDividedBy3 = 0;
         protected static int s_LargestDigit = 0;

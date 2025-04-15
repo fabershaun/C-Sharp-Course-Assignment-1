@@ -4,6 +4,9 @@ namespace Ex01_02
 {
     public class Tree
     {
+        protected const int k_smallestTree = 4;
+        protected const int k_biggestTree = 15;
+
         public static void PrintTree(int i_Height)
         {
             int numberOfCharsInLine = 1;
@@ -21,6 +24,11 @@ namespace Ex01_02
             {
                 for (int i = 0; i < 2; i++)
                 {
+                    if (i_NumberToStart == 10)
+                    {
+                        i_NumberToStart = 1;
+                    }
+
                     Console.Write(i_RowLetter++);
                     Console.Write(new string(' ', i_NumberOfSpacesOriginal));
                     Console.WriteLine("|{0}|", i_NumberToStart);
@@ -72,7 +80,7 @@ namespace Ex01_02
 
         private static bool CheckInput(int i_input)
         {
-            return i_input >= 4 && i_input <= 15;
+            return i_input >= k_smallestTree && i_input <= k_biggestTree;
         }
     }
 }
