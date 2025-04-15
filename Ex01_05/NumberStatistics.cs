@@ -18,7 +18,6 @@ namespace Ex01_05
         public static string GetInput()
         {
             bool isValid = true;
-            bool isStringOnlyDigits;
             string userInput;
 
             do
@@ -26,7 +25,7 @@ namespace Ex01_05
                 Console.Write("Please enter an {0} digits number: ", k_InputLength);
                 userInput = Console.ReadLine();
 
-                isStringOnlyDigits = userInput.All(char.IsDigit);
+                bool isStringOnlyDigits = userInput.All(char.IsDigit);
 
                 if (userInput.Length != k_InputLength || isStringOnlyDigits == false)
                 {
@@ -55,13 +54,13 @@ namespace Ex01_05
 
         public static void CalculateStatistics(string i_input)
         {
-            FindNumberOfDigitsSmallerThanTheFirstDigit(i_input);
-            FindNumberOfDigitsDividedBy3(i_input);
-            FindDifferenceBetweenMaxAndMinDigit(i_input);
-            FindMostFrequentDigit(i_input);
+            findNumberOfDigitsSmallerThanTheFirstDigit(i_input);
+            findNumberOfDigitsDividedBy3(i_input);
+            findDifferenceBetweenMaxAndMinDigit(i_input);
+            findMostFrequentDigit(i_input);
         }
 
-        public static void FindNumberOfDigitsSmallerThanTheFirstDigit(string i_input)
+        private static void findNumberOfDigitsSmallerThanTheFirstDigit(string i_input)
         {
             char firstChar = i_input[0];
             for(int i = 1; i < i_input.Length; i++)
@@ -73,7 +72,7 @@ namespace Ex01_05
             }
         }
 
-        public static void FindNumberOfDigitsDividedBy3(string i_input)
+        private static void findNumberOfDigitsDividedBy3(string i_input)
         {
             foreach (char digitChar in i_input)
             {
@@ -84,7 +83,7 @@ namespace Ex01_05
             }
         }
 
-        public static void FindDifferenceBetweenMaxAndMinDigit(string i_input)
+        private static void findDifferenceBetweenMaxAndMinDigit(string i_input)
         {
             findMaxAndMinDigits(i_input);
             s_DifferenceBetweenMaxAndMinDigit = s_LargestDigit - s_SmallestDigit;
@@ -107,7 +106,7 @@ namespace Ex01_05
             }
         }
 
-        public static void FindMostFrequentDigit(string i_Input)
+        private static void findMostFrequentDigit(string i_Input)
         {
             int maxCount = 0;
             char mostFrequentDigit = '0';

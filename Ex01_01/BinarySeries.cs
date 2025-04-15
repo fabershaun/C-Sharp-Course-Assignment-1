@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Ex01_01
 {
@@ -11,8 +12,9 @@ namespace Ex01_01
 
         public static void Run()
         {
-            Console.WriteLine("Please enter {0} binary numbers, each with exactly {1} digits:",
-                Program.k_NumberOfInputs, Program.k_BinaryNumberLength);
+            string startingMessage = string.Format("Please enter {0} binary numbers, each with exactly {1} digits:", Program.k_NumberOfInputs, Program.k_BinaryNumberLength);
+
+            Console.WriteLine(startingMessage);
 
             readUserInputs();
             analyzeAllNumbers();
@@ -24,14 +26,22 @@ namespace Ex01_01
         {
             for (int i = 0; i < Program.k_NumberOfInputs; i++)
             {
-                Console.Write("Enter binary number #{0}: ", i + 1);
-                string userInput = Console.ReadLine();
+                bool isValid = true;
+                string userInput;
+                string invalidInputMessage = string.Format("Invalid input. Please enter exactly {0} binary digits (0 or 1). ", Program.k_BinaryNumberLength);
 
-                while (!isBinaryInputValid(userInput))
+                do
                 {
-                    Console.Write("Invalid input. Please enter exactly {0} binary digits (0 or 1): ", Program.k_BinaryNumberLength);
+                    Console.Write("Enter binary number #{0}: ", i + 1);
                     userInput = Console.ReadLine();
-                }
+                    isValid = true;
+
+                    if (isBinaryInputValid(userInput) == false)
+                    {
+                        Console.WriteLine(invalidInputMessage);
+                        isValid = false;
+                    }
+                } while (isValid == false);
 
                 Number parsedNumber = new Number();
                 parsedNumber.m_BinaryNumberString = userInput;
@@ -44,6 +54,7 @@ namespace Ex01_01
         private static bool isBinaryInputValid(string i_BinaryString)
         {
             bool isValid = true;
+
             if (i_BinaryString.Length != Program.k_BinaryNumberLength)
             {
                 isValid = false;
@@ -89,11 +100,9 @@ namespace Ex01_01
                     currentConsecutiveOnes++;
                     totalOnes++;
 
-                    if (currentConsecutiveOnes > maxConsecutiveOnes)
-                    {
-                        maxConsecutiveOnes = currentConsecutiveOnes;
-                    }
+                    maxConsecutiveOnes = Math.Max(maxConsecutiveOnes, currentConsecutiveOnes);
                 }
+
                 else
                 {
                     currentConsecutiveOnes = 0;
@@ -207,15 +216,22 @@ namespace Ex01_01
 
         private static void printTransitionsPerNumber()
         {
-            Console.WriteLine();
-            Console.WriteLine("Bit transitions per number:");
+            StringBuilder outputMessage = new StringBuilder();
+
+            outputMessage.AppendLine();
+            outputMessage.AppendLine("Bit transitions per number:");
 
             for (int i = 0; i < s_InputNumbers.Length; i++)
             {
-                Console.WriteLine("{0} => {1} transitions",
-                    s_InputNumbers[i].m_BinaryNumberString,
-                    s_InputNumbers[i].m_numOfTransitions);
+                string binaryString = s_InputNumbers[i].m_BinaryNumberString;
+                int transitions = s_InputNumbers[i].m_numOfTransitions;
+
+                string line = string.Format("{0} => {1} transitions", binaryString, transitions);
+
+                outputMessage.AppendLine(line);
             }
+
+            Console.WriteLine(outputMessage.ToString());
         }
     }
 }
