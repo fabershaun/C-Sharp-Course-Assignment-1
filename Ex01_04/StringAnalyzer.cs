@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 
 namespace Ex01_04
 {
@@ -61,23 +62,54 @@ namespace Ex01_04
 
         public static void PrintAnalyzedResult()
         {
-            Console.WriteLine(s_IsPalindrome
-                ? "The string is a palindrome."
-                : "The string is not a palindrome.");
+            StringBuilder outputMessage = new StringBuilder();
+            outputMessage.Append("Is palindrome? ");
+
+            if (s_IsPalindrome == true)
+            {
+                outputMessage.AppendLine("Yes");
+            }
+
+            else
+            {
+                outputMessage.AppendLine("No");
+            }
 
             if (s_IsStringOnlyDigits == true)
             {
-                Console.WriteLine(s_IsNumberDividedBy3 == true
-                    ? "The number is divided by 3."
-                    : "The number is not divided by 3.");
+                outputMessage.Append("Is divided by 3? ");
+
+                if (s_IsNumberDividedBy3 == true)
+                {
+                    outputMessage.AppendLine("Yes");
+                }
+
+                else
+                {
+                    outputMessage.AppendLine("No");
+                }
             }
+
             else if (s_IsStringOnlyLetter == true)
             {
-                Console.WriteLine("The number of capital letter in the string is: {0}", s_NumberOfCapitalLetters);
-                Console.WriteLine(s_AscendingAlphabeticalOrder == true
-                    ? "The string is sorted in ascending alphabetical order."
-                    : "The string is not sorted in ascending alphabetical order.");
+                outputMessage.Append("The number of capital letter in the string is: ");
+                outputMessage.AppendLine(s_NumberOfCapitalLetters.ToString());
+                outputMessage.Append("Is sorted in ascending alphabetical order? ");
+
+                if (s_AscendingAlphabeticalOrder == true)
+                {
+                    outputMessage.AppendLine("Yes");
+                }
+
+                else
+                {
+                    outputMessage.AppendLine("No");
+                }
             }
+
+
+            Console.WriteLine(outputMessage.ToString());
+
         }
 
         private static void isPalindrome(string i_InputString)
