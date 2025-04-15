@@ -10,6 +10,7 @@ namespace Ex01_01
         private static Number s_NumberWithLongestOnesSequence = null;
         private static Number s_NumberWithMostOnes = null;
 
+        
         public static void Run()
         {
             string startingMessage = string.Format("Please enter {0} binary numbers, each with exactly {1} digits:", Program.k_NumberOfInputs, Program.k_BinaryNumberLength);
@@ -22,6 +23,7 @@ namespace Ex01_01
             printStatistics();
         }
 
+        /// The method reads the user input and checks if it is valid.
         private static void readUserInputs()
         {
             for (int i = 0; i < Program.k_NumberOfInputs; i++)
@@ -51,6 +53,7 @@ namespace Ex01_01
             }
         }
 
+        /// The method checks if the input is valid.
         private static bool isBinaryInputValid(string i_BinaryString)
         {
             bool isValid = true;
@@ -71,6 +74,7 @@ namespace Ex01_01
             return isValid;
         }
 
+        /// The method analyzes all the numbers and calculates their statistics.
         private static void analyzeAllNumbers()
         {
             for (int i = 0; i < s_InputNumbers.Length; i++)
@@ -79,6 +83,7 @@ namespace Ex01_01
             }
         }
 
+        /// The method analyzes a single number and calculates its statistics.
         private static void analyzeSingleNumber(Number io_Number)
         {
             int remainingBinaryValue = io_Number.m_binaryFormat;
@@ -138,6 +143,7 @@ namespace Ex01_01
             }
         }
 
+        /// The method prints the decimal values of the binary numbers in descending order.
         private static void printDecimalValuesDescending()
         {
             Number[] sortedNumbers = (Number[])s_InputNumbers.Clone();
@@ -171,6 +177,7 @@ namespace Ex01_01
             }
         }
 
+        /// The method prints the statistics of the binary numbers.
         private static void printStatistics()
         {
             printAverageDecimalValue();
@@ -180,6 +187,7 @@ namespace Ex01_01
             printTransitionsPerNumber();
         }
 
+        /// The method calculates and prints the average decimal value of the binary numbers.
         private static void printAverageDecimalValue()
         {
             int sumOfDecimals = 0;

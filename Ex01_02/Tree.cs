@@ -4,6 +4,7 @@ namespace Ex01_02
 {
     public class Tree
     {
+        /// The method prints the tree.
         public static void PrintTree(int i_Height)
         {
             int numberOfCharsInLine = 1;
@@ -14,6 +15,8 @@ namespace Ex01_02
             printTreeHelper(i_Height, numberOfCharsInLine, numberToStart, rowLetter, numberOfSpaces, numberOfSpaces);
 
         }
+
+        /// The method prints the tree recursively.
         private static void printTreeHelper(int i_Height, int i_NumberOfCharsInLine, int i_NumberToStart,
             char i_RowLetter, int i_NumberOfSpaces, int i_NumberOfSpacesOriginal)
         {
@@ -47,6 +50,7 @@ namespace Ex01_02
                 i_NumberToStart, (char)(i_RowLetter + 1), i_NumberOfSpaces - 2, i_NumberOfSpacesOriginal);
         }
 
+        /// The method gets the input from the user and checks if it is valid.
         public static int GetInputFromUser()
         {
             int input;
@@ -70,6 +74,7 @@ namespace Ex01_02
             return input;
         }
 
+        /// The method checks if the input is valid.
         private static bool CheckInput(int i_input)
         {
             return i_input >= 4 && i_input <= 15;
