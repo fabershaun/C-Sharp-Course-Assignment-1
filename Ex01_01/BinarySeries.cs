@@ -112,7 +112,6 @@ namespace Ex01_01
                 {
                     currentConsecutiveOnes = 0;
                 }
-
                 if (previousBit != -1 && previousBit != currentBit)
                 {
                     transitionCount++;
@@ -203,6 +202,7 @@ namespace Ex01_01
             Console.WriteLine("Average decimal value: {0}", average);
         }
 
+        /// The method prints the number with the longest sequence of ones and its length.
         private static void printNumberWithLongestOnesSeries()
         {
             Console.WriteLine("Number with the longest sequence of ones: {0} (length: {1})",
@@ -210,6 +210,7 @@ namespace Ex01_01
                 s_NumberWithLongestOnesSequence.m_numOfOnesSeries);
         }
 
+        /// The method prints the number with the most ones and its count.
         private static void printNumberWithMostOnes()
         {
             Console.WriteLine("Number with the most ones: {0} (count: {1})",
@@ -217,11 +218,13 @@ namespace Ex01_01
                 s_NumberWithMostOnes.m_numOfOnes);
         }
 
+        /// The method prints the total number of ones in all binary numbers.
         private static void printTotalOnesInAllNumbers()
         {
             Console.WriteLine("Total number of ones in all inputs: {0}", s_TotalOnesAcrossAllNumbers);
         }
 
+        /// The method prints the number of transitions in each binary number.
         private static void printTransitionsPerNumber()
         {
             StringBuilder outputMessage = new StringBuilder();
