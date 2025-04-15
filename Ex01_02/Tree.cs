@@ -14,7 +14,7 @@ namespace Ex01_02
             printTreeHelper(i_Height, numberOfCharsInLine, numberToStart, rowLetter, numberOfSpaces, numberOfSpaces);
 
         }
-        private static void printTreeHelper(int  i_Height, int i_NumberOfCharsInLine, int i_NumberToStart,
+        private static void printTreeHelper(int i_Height, int i_NumberOfCharsInLine, int i_NumberToStart,
             char i_RowLetter, int i_NumberOfSpaces, int i_NumberOfSpacesOriginal)
         {
             if (i_Height == 2)
@@ -46,5 +46,35 @@ namespace Ex01_02
             printTreeHelper(i_Height - 1, i_NumberOfCharsInLine + 2,
                 i_NumberToStart, (char)(i_RowLetter + 1), i_NumberOfSpaces - 2, i_NumberOfSpacesOriginal);
         }
+
+        public static int GetInputFromUser()
+        {
+            int input;
+            bool isValid = false;
+
+            do
+            {
+                Console.Write("Please enter the tree height: ");
+                string userInput = Console.ReadLine();
+                if (int.TryParse(userInput, out input) == true && CheckInput(input) == true)
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                }
+            }
+            while (!isValid);
+
+            return input;
+        }
+
+        private static bool CheckInput(int input)
+        {
+            return input >= 4 && input <= 15;
+        }
     }
 }
+
+
