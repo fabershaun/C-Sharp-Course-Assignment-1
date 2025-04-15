@@ -38,21 +38,21 @@ namespace Ex01_04
             return userInput;
         }
 
-        public static void StartAnalyzeInput(string input)
+        public static void StartAnalyzeInput(string io_Input)
         {
-            isPalindrome(input);
+            isPalindrome(io_Input);
 
-            s_IsStringOnlyDigits = input.All(char.IsDigit);
-            s_IsStringOnlyLetter = input.All(char.IsLetter);
+            s_IsStringOnlyDigits = io_Input.All(char.IsDigit);
+            s_IsStringOnlyLetter = io_Input.All(char.IsLetter);
 
             if (s_IsStringOnlyDigits == true)
             {
-                isNumberDividedBy3(input);
+                isNumberDividedBy3(io_Input);
             }
             else if (s_IsStringOnlyLetter)
             {
-                s_NumberOfCapitalLetters = input.Count(char.IsUpper);
-                isAscendingAlphabeticalOrder(input);
+                s_NumberOfCapitalLetters = io_Input.Count(char.IsUpper);
+                isAscendingAlphabeticalOrder(io_Input);
             }
         }
 
