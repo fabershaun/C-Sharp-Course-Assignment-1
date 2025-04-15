@@ -7,9 +7,8 @@ namespace ex3
     {
         public static void Main()
         {
-            //get input from user
-            //check input
-            //call Tree(height)
+            int height = Tree.GetInputFromUser();
+            Tree.PrintTree(height);
         }
     }
 }
