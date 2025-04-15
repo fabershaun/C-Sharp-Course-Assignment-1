@@ -176,8 +176,8 @@ namespace Ex01_01
             printAverageDecimalValue();
             printNumberWithLongestOnesSeries();
             printNumberWithMostOnes();
-            printTotalOnesInAllNumbers();
             printTransitionsPerNumber();
+            printTotalOnesInAllNumbers();
         }
 
         private static void printAverageDecimalValue()
@@ -197,16 +197,16 @@ namespace Ex01_01
 
         private static void printNumberWithLongestOnesSeries()
         {
-            Console.WriteLine("Number with the longest sequence of ones: {0} (length: {1})",
-                s_NumberWithLongestOnesSequence.m_BinaryNumberString,
-                s_NumberWithLongestOnesSequence.m_numOfOnesSeries);
+            Console.WriteLine("Longest sequence of ones: {0}, in the number {1}",
+                s_NumberWithLongestOnesSequence.m_numOfOnesSeries,
+                s_NumberWithLongestOnesSequence.m_BinaryNumberString);
         }
 
         private static void printNumberWithMostOnes()
         {
-            Console.WriteLine("Number with the most ones: {0} (count: {1})",
-                s_NumberWithMostOnes.m_BinaryNumberString,
-                s_NumberWithMostOnes.m_numOfOnes);
+            Console.WriteLine("Number with the most ones: {0} (binary:{1})",
+                s_NumberWithMostOnes.m_decimalFormat,
+                s_NumberWithMostOnes.m_BinaryNumberString);
         }
 
         private static void printTotalOnesInAllNumbers()
