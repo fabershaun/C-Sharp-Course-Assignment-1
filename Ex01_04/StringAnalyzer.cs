@@ -14,6 +14,7 @@ namespace Ex01_04
         protected static bool s_AscendingAlphabeticalOrder = false;
         protected static int s_NumberOfCapitalLetters = 0;
 
+        /// The method gets the input from the user and checks if it is valid.
         public static string GetInput()
         {
             bool isValid = false;
@@ -40,7 +41,7 @@ namespace Ex01_04
 
             return userInput;
         }
-
+        /// The method analyzes the input string and sets the static variables accordingly.
         public static void StartAnalyzeInput(string i_Input)
         {
             isPalindrome(i_Input);
@@ -60,58 +61,75 @@ namespace Ex01_04
             }
         }
 
+        /// The method prints the analyzed result to the console.
         public static void PrintAnalyzedResult()
         {
             StringBuilder outputMessage = new StringBuilder();
             outputMessage.Append("Is palindrome? ");
 
+            handleIfPalindrome(outputMessage);
+            handleIfInStringOnlyDigits(outputMessage);
+            handleIfInStringOnlyLetters(outputMessage);
+
+            Console.WriteLine(outputMessage.ToString());
+        }
+
+        /// The method handles the output message for palindrome check.
+        private static void handleIfPalindrome(StringBuilder io_stringoutputMessage)
+        {
             if (s_IsPalindrome == true)
             {
-                outputMessage.AppendLine("Yes");
+                io_stringoutputMessage.AppendLine("Yes");
             }
 
             else
             {
-                outputMessage.AppendLine("No");
+                io_stringoutputMessage.AppendLine("No");
             }
+        }
 
+        /// The method handles the output message for string with only digits.
+        private static void handleIfInStringOnlyDigits(StringBuilder io_stringoutputMessage)
+        {
             if (s_IsStringOnlyDigits == true)
             {
-                outputMessage.Append("Is divided by 3? ");
+                io_stringoutputMessage.Append("Is divided by 3? ");
 
                 if (s_IsNumberDividedBy3 == true)
                 {
-                    outputMessage.AppendLine("Yes");
+                    io_stringoutputMessage.AppendLine("Yes");
                 }
 
                 else
                 {
-                    outputMessage.AppendLine("No");
+                    io_stringoutputMessage.AppendLine("No");
                 }
             }
+        }
 
-            else if (s_IsStringOnlyLetter == true)
+        /// The method handles the output message for string with only letters.
+        private static void handleIfInStringOnlyLetters(StringBuilder io_stringoutputMessage)
+        {
+            if (s_IsStringOnlyLetter == true)
             {
-                outputMessage.Append("The number of capital letter in the string is: ");
-                outputMessage.AppendLine(s_NumberOfCapitalLetters.ToString());
-                outputMessage.Append("Is sorted in ascending alphabetical order? ");
+                io_stringoutputMessage.Append("The number of capital letter in the string is: ");
+                io_stringoutputMessage.AppendLine(s_NumberOfCapitalLetters.ToString());
+                io_stringoutputMessage.Append("Is sorted in ascending alphabetical order? ");
 
                 if (s_AscendingAlphabeticalOrder == true)
                 {
-                    outputMessage.AppendLine("Yes");
+                    io_stringoutputMessage.AppendLine("Yes");
                 }
 
                 else
                 {
-                    outputMessage.AppendLine("No");
+                    io_stringoutputMessage.AppendLine("No");
                 }
             }
-
-
-            Console.WriteLine(outputMessage.ToString());
-
         }
 
+
+        /// The method checks if the input string is a palindrome.
         private static void isPalindrome(string i_InputString)
         {
             if (i_InputString.Length <= 1)
@@ -130,6 +148,7 @@ namespace Ex01_04
             isPalindrome(trimmedString);
         }
 
+        /// The method checks if two letters are the same, ignoring case.
         private static bool isSameLetter(char i_Letter1, char i_Letter2)
         {
             bool isSameLetter = true;
@@ -146,6 +165,7 @@ namespace Ex01_04
             return isSameLetter;
         }
 
+        /// The method checks if the input string is in ascending alphabetical order.
         private static void isAscendingAlphabeticalOrder(string i_InputString)
         {
             s_AscendingAlphabeticalOrder = true;
