@@ -70,9 +70,9 @@ namespace Ex01_02
             return input;
         }
 
-        private static bool CheckInput(int input)
+        private static bool CheckInput(int i_input)
         {
-            return input >= 4 && input <= 15;
+            return i_input >= 4 && i_input <= 15;
         }
     }
 }
