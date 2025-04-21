@@ -64,8 +64,8 @@ namespace Ex01_04
         public static void PrintAnalyzedResult()
         {
             StringBuilder outputMessage = new StringBuilder();
-            outputMessage.Append("Is palindrome? ");
 
+            outputMessage.Append("Is palindrome? ");
             handleIfPalindrome(outputMessage);
             handleIfInStringOnlyDigits(outputMessage);
             handleIfInStringOnlyLetters(outputMessage);

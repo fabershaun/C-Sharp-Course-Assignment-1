@@ -20,7 +20,6 @@ namespace Ex01_05
 
         protected static StringBuilder s_outputMessage = new StringBuilder();  // Accumulated output
 
-
         public static string GetInput()
         {
             bool isValid = true; // Input is valid
