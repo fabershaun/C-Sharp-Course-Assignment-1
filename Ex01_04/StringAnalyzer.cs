@@ -14,7 +14,6 @@ namespace Ex01_04
         protected static bool s_AscendingAlphabeticalOrder = false;
         protected static int s_NumberOfCapitalLetters = 0;
 
-        /// The method gets the input from the user and checks if it is valid.
         public static string GetInput()
         {
             bool isValid = false;
@@ -31,7 +30,6 @@ namespace Ex01_04
                     isValid = false;
                     Console.WriteLine("Invalid input. Please try again.");
                 }
-
                 else
                 {
                     isValid = true;
@@ -41,7 +39,7 @@ namespace Ex01_04
 
             return userInput;
         }
-        /// The method analyzes the input string and sets the static variables accordingly.
+
         public static void StartAnalyzeInput(string i_Input)
         {
             isPalindrome(i_Input);
@@ -61,7 +59,6 @@ namespace Ex01_04
             }
         }
 
-        /// The method prints the analyzed result to the console.
         public static void PrintAnalyzedResult()
         {
             StringBuilder outputMessage = new StringBuilder();
@@ -74,21 +71,18 @@ namespace Ex01_04
             Console.WriteLine(outputMessage.ToString());
         }
 
-        /// The method handles the output message for palindrome check.
         private static void handleIfPalindrome(StringBuilder io_stringoutputMessage)
         {
             if (s_IsPalindrome == true)
             {
                 io_stringoutputMessage.AppendLine("Yes");
             }
-
             else
             {
                 io_stringoutputMessage.AppendLine("No");
             }
         }
 
-        /// The method handles the output message for string with only digits.
         private static void handleIfInStringOnlyDigits(StringBuilder io_stringoutputMessage)
         {
             if (s_IsStringOnlyDigits == true)
@@ -99,7 +93,6 @@ namespace Ex01_04
                 {
                     io_stringoutputMessage.AppendLine("Yes");
                 }
-
                 else
                 {
                     io_stringoutputMessage.AppendLine("No");
@@ -107,7 +100,6 @@ namespace Ex01_04
             }
         }
 
-        /// The method handles the output message for string with only letters.
         private static void handleIfInStringOnlyLetters(StringBuilder io_stringoutputMessage)
         {
             if (s_IsStringOnlyLetter == true)
@@ -120,7 +112,6 @@ namespace Ex01_04
                 {
                     io_stringoutputMessage.AppendLine("Yes");
                 }
-
                 else
                 {
                     io_stringoutputMessage.AppendLine("No");
@@ -129,7 +120,6 @@ namespace Ex01_04
         }
 
 
-        /// The method checks if the input string is a palindrome.
         private static void isPalindrome(string i_InputString)
         {
             if (i_InputString.Length <= 1)
@@ -148,7 +138,6 @@ namespace Ex01_04
             isPalindrome(trimmedString);
         }
 
-        /// The method checks if two letters are the same, ignoring case.
         private static bool isSameLetter(char i_Letter1, char i_Letter2)
         {
             bool isSameLetter = true;
@@ -165,7 +154,6 @@ namespace Ex01_04
             return isSameLetter;
         }
 
-        /// The method checks if the input string is in ascending alphabetical order.
         private static void isAscendingAlphabeticalOrder(string i_InputString)
         {
             s_AscendingAlphabeticalOrder = true;

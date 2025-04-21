@@ -19,7 +19,6 @@ namespace Ex01_05
         protected static StringBuilder s_outputMessage = new StringBuilder();
 
 
-        /// The method gets the input from the user and checks if it is valid.
         public static string GetInput()
         {
             bool isValid = true;
@@ -37,7 +36,6 @@ namespace Ex01_05
                     isValid = false;
                     Console.WriteLine("Invalid input. Please try again.");
                 }
-
                 else
                 {
                     isValid = true;
@@ -48,13 +46,11 @@ namespace Ex01_05
             return userInput;
         }
 
-        /// The method prints the statistics result to the console.
         public static void PrintStatisticsResult()
         {
             Console.WriteLine(s_outputMessage);
         }
 
-        /// The method calculates the statistics of the input string.
         public static void CalculateStatistics(string i_input)
         {
 
@@ -64,7 +60,6 @@ namespace Ex01_05
             findMostFrequentDigit(i_input);
         }
         
-        /// The methos finds the first digit in the input string and counts how many digits are smaller than it.
         private static void findNumberOfDigitsSmallerThanTheFirstDigit(string i_input)
         {
             s_FirstDigit = i_input[0] - '0';
@@ -87,7 +82,6 @@ namespace Ex01_05
             {
                 s_outputMessage.Append("None");
             }
-
             else
             {
                 s_outputMessage.Length -= 2; // Remove the last comma and space
@@ -97,7 +91,6 @@ namespace Ex01_05
             s_outputMessage.AppendLine(s_NumberOfDigitsSmallerThanTheFirstDigit.ToString());
         }
 
-        /// The method finds the digits in the input string that are divided by 3 and counts them.
         private static void findNumberOfDigitsDividedBy3(string i_input)
         {
             s_outputMessage.Append("The digits which divisible by 3 are: ");
@@ -116,7 +109,6 @@ namespace Ex01_05
             {
                 s_outputMessage.Append("None");
             }
-            
             else
             {
                 s_outputMessage.Length -= 2;
@@ -127,7 +119,6 @@ namespace Ex01_05
             s_outputMessage.AppendLine(s_NumberOfDigitsDividedBy3.ToString());
         }
 
-        /// The method finds the max and min digits in the input string and calculates the difference between them.
         private static void findDifferenceBetweenMaxAndMinDigit(string i_input)
         {
             s_outputMessage.Append("The difference between the max and the min digits is: ");
@@ -136,7 +127,6 @@ namespace Ex01_05
             s_outputMessage.AppendLine(s_DifferenceBetweenMaxAndMinDigit.ToString());
         }
 
-        /// The method finds the max and min digits in the input string.
         private static void findMaxAndMinDigits(string i_input)
         {
             foreach (char digitChar in i_input)
@@ -154,7 +144,6 @@ namespace Ex01_05
             }
         }
 
-        /// The method finds the most frequent digit in the input string and counts how many times it appears.
         private static void findMostFrequentDigit(string i_Input)
         {
             int maxCount = 0;
