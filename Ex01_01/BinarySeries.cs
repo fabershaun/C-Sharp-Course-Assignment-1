@@ -3,6 +3,14 @@ using System.Text;
 
 namespace Ex01_01
 {
+
+    internal enum InputValidationResult
+    {
+        Valid,
+        InvalidLength,
+        InvalidCharacter
+    }
+
     internal class BinarySeries
     {
         private static Number[] s_InputNumbers = new Number[Program.k_NumberOfInputs]; // Stores user input numbers
@@ -11,9 +19,12 @@ namespace Ex01_01
         private static Number s_NumberWithMostOnes = null; // Number with the highest total '1's
 
 
-        public static void Run()
+        public static void startProcess()
         {
-            string startingMessage = string.Format("Please enter {0} binary numbers, each with exactly {1} digits:", Program.k_NumberOfInputs, Program.k_BinaryNumberLength);
+            string startingMessage = string.Format(
+                "Please enter {0} binary numbers, each with exactly {1} digits:",
+                Program.k_NumberOfInputs,
+                Program.k_BinaryNumberLength);
 
             Console.WriteLine(startingMessage);
 
@@ -27,22 +38,7 @@ namespace Ex01_01
         {
             for (int i = 0; i < Program.k_NumberOfInputs; i++)
             {
-                bool isValid = true;
-                string userInput;
-                string invalidInputMessage = string.Format("Invalid input. Please enter exactly {0} binary digits (0 or 1). ", Program.k_BinaryNumberLength);
-
-                do
-                {
-                    Console.Write("Enter binary number #{0}: ", i + 1);
-                    userInput = Console.ReadLine();
-                    isValid = true;
-
-                    if (isBinaryInputValid(userInput) == false)
-                    {
-                        Console.WriteLine(invalidInputMessage);
-                        isValid = false;
-                    }
-                } while (isValid == false);
+                string userInput = getValidBinaryInput(i);
 
                 Number parsedNumber = new Number();
                 parsedNumber.m_BinaryNumberString = userInput;
@@ -52,24 +48,65 @@ namespace Ex01_01
             }
         }
 
-        private static bool isBinaryInputValid(string i_BinaryString)
+        private static string getValidBinaryInput(int i_InputIndex)
         {
-            bool isValid = true;
+            string userInput;
+            bool isValid;
 
+            do
+            {
+                Console.Write("Enter binary number #{0}: ", i_InputIndex + 1);
+                userInput = Console.ReadLine();
+
+                InputValidationResult validationResult = validateBinaryInput(userInput);
+
+                if (validationResult != InputValidationResult.Valid)
+                {
+                    printValidationError(validationResult); // Print the specific validation error
+                    isValid = false;
+                    isValid = false;
+                }
+                else
+                {
+                    isValid = true;
+                }
+            }
+            while (!isValid);
+
+            return userInput;
+        }
+
+        private static InputValidationResult validateBinaryInput(string i_BinaryString)
+        {
             if (i_BinaryString.Length != Program.k_BinaryNumberLength)
             {
-                isValid = false;
+                return InputValidationResult.InvalidLength;
             }
 
             for (int i = 0; i < i_BinaryString.Length; i++)
             {
                 if (i_BinaryString[i] != '0' && i_BinaryString[i] != '1')
                 {
-                    isValid = false;
+                    return InputValidationResult.InvalidCharacter;
                 }
             }
 
-            return isValid;
+            return InputValidationResult.Valid;
+        }
+
+        private static void printValidationError(InputValidationResult i_ValidationResult)
+        {
+            switch (i_ValidationResult)
+            {
+                case InputValidationResult.InvalidLength:
+                    Console.WriteLine(
+                        "Invalid input length. Please enter exactly {0} binary digits.",
+                        Program.k_BinaryNumberLength);
+                    break;
+                case InputValidationResult.InvalidCharacter:
+                    Console.WriteLine("Invalid input. Only '0' and '1' are allowed.");
+                    break;
+            }
         }
 
         private static void analyzeAllNumbers()
@@ -89,11 +126,11 @@ namespace Ex01_01
             int totalOnes = 0;
             int transitionCount = 0;
             int previousBit = -1; // -1 indicates no previous bit yet
-            int currentPower = 0; // Position power for decimal calculation
+            int currentPower = 0; // Exponent used for calculating decimal value
 
             for (int i = 0; i < Program.k_BinaryNumberLength; i++)
             {
-                int currentBit = remainingBinaryValue % 10; // Get the last digit
+                int currentBit = remainingBinaryValue % 10; // Extract the least significant digit (bit)
 
                 if (currentBit == 1)
                 {
@@ -101,21 +138,21 @@ namespace Ex01_01
                     currentConsecutiveOnes++;
                     totalOnes++;
 
-                    maxConsecutiveOnes = Math.Max(maxConsecutiveOnes, currentConsecutiveOnes); // Track max consecutive ones
+                    maxConsecutiveOnes = Math.Max(maxConsecutiveOnes, currentConsecutiveOnes); // Update maximum consecutive '1's if needed
                 }
                 else
                 {
-                    currentConsecutiveOnes = 0; // Reset consecutive ones counter
+                    currentConsecutiveOnes = 0; // Reset counter if the bit is '0'
                 }
 
                 if (previousBit != -1 && previousBit != currentBit)
                 {
-                    transitionCount++; // Count a transition if the bit changed
+                    transitionCount++; // Transition from 0→1 or 1→0
                 }
 
                 previousBit = currentBit;
                 remainingBinaryValue /= 10; // Remove last digit
-                currentPower++; // Move to next bit position
+                currentPower++; // Move to next power of two
             }
 
             io_Number.m_decimalFormat = decimalValue;
@@ -125,6 +162,7 @@ namespace Ex01_01
 
             s_TotalOnesAcrossAllNumbers += totalOnes;
 
+            // Update global statistics if this number has better metrics
             if (s_NumberWithLongestOnesSequence == null ||
                 maxConsecutiveOnes > s_NumberWithLongestOnesSequence.m_numOfOnesSeries)
             {
@@ -140,8 +178,9 @@ namespace Ex01_01
 
         private static void printDecimalValuesDescending()
         {
-            Number[] sortedNumbers = (Number[])s_InputNumbers.Clone();
+            Number[] sortedNumbers = (Number[])s_InputNumbers.Clone(); // Clone so we don't modify the original array
 
+            // Sort array by decimal value descending
             for (int i = 0; i < sortedNumbers.Length - 1; i++)
             {
                 int maxIndex = i;

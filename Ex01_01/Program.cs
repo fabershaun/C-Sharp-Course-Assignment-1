@@ -9,7 +9,7 @@ namespace Ex01_01
 
         public static void Main()
         {
-            BinarySeries.Run();
+            BinarySeries.startProcess();
         }
     }
 }

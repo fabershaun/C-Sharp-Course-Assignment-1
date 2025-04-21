@@ -20,6 +20,11 @@ namespace Ex01_02
         {
             if (i_Height == 2) // Base case: last two rows (tree "trunk")
             {
+                if (i_NumberToStart == 10) // Reset number back to 1 after 9
+                {
+                    i_NumberToStart = 1;
+                }
+
                 for (int i = 0; i < 2; i++)
                 {
                     Console.Write(i_RowLetter++); // Print letter and increment to next letter
