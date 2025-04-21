@@ -6,7 +6,9 @@ namespace Ex01_05
 {
     internal class NumberStatistics
     {
-        private const int k_InputLength = 8;
+        private const int k_InputLength = 8; // Required input length
+
+        // Analysis results
         protected static int s_FirstDigit = -1;
         protected static int s_NumberOfDigitsSmallerThanTheFirstDigit = 0;
         protected static int s_NumberOfDigitsDividedBy3 = 0;
@@ -16,12 +18,12 @@ namespace Ex01_05
         protected static int s_MostFrequentDigit;
         protected static int s_MostFrequentDigitCount;
 
-        protected static StringBuilder s_outputMessage = new StringBuilder();
+        protected static StringBuilder s_outputMessage = new StringBuilder();  // Accumulated output
 
 
         public static string GetInput()
         {
-            bool isValid = true;
+            bool isValid = true; // Input is valid
             string userInput;
 
             do
@@ -29,7 +31,7 @@ namespace Ex01_05
                 Console.Write("Please enter an {0} digits number: ", k_InputLength);
                 userInput = Console.ReadLine();
 
-                bool isStringOnlyDigits = userInput.All(char.IsDigit);
+                bool isStringOnlyDigits = userInput.All(char.IsDigit); // Check if input contains only digits
 
                 if (userInput.Length != k_InputLength || isStringOnlyDigits == false)
                 {
@@ -62,15 +64,15 @@ namespace Ex01_05
         
         private static void findNumberOfDigitsSmallerThanTheFirstDigit(string i_input)
         {
-            s_FirstDigit = i_input[0] - '0';
-            
+            s_FirstDigit = i_input[0] - '0'; // Get numeric value of first character
+
             s_outputMessage.Append("The first digit is: ");
             s_outputMessage.Append(s_FirstDigit.ToString());
             s_outputMessage.Append(". The digits that smaller than the first digit are: ");
 
             for (int i = 1; i < i_input.Length; i++)
             {
-                if (i_input[i] - '0' < s_FirstDigit)
+                if (i_input[i] - '0' < s_FirstDigit) // Compare digits numerically
                 {
                     s_NumberOfDigitsSmallerThanTheFirstDigit++;
                     s_outputMessage.Append(i_input[i]);
@@ -97,7 +99,7 @@ namespace Ex01_05
 
             foreach (char digitChar in i_input)
             {
-                if ((digitChar - '0') % 3 == 0)
+                if ((digitChar - '0') % 3 == 0) // Check divisibility by 3
                 {
                     s_NumberOfDigitsDividedBy3++;
                     s_outputMessage.Append(digitChar);
@@ -111,7 +113,7 @@ namespace Ex01_05
             }
             else
             {
-                s_outputMessage.Length -= 2;
+                s_outputMessage.Length -= 2; // Remove last comma and space
             }
 
             s_outputMessage.Append(". ");
@@ -123,7 +125,7 @@ namespace Ex01_05
         {
             s_outputMessage.Append("The difference between the max and the min digits is: ");
             findMaxAndMinDigits(i_input);
-            s_DifferenceBetweenMaxAndMinDigit = s_LargestDigit - s_SmallestDigit;
+            s_DifferenceBetweenMaxAndMinDigit = s_LargestDigit - s_SmallestDigit; // Calculate difference
             s_outputMessage.AppendLine(s_DifferenceBetweenMaxAndMinDigit.ToString());
         }
 
@@ -147,11 +149,11 @@ namespace Ex01_05
         private static void findMostFrequentDigit(string i_Input)
         {
             int maxCount = 0;
-            char mostFrequentDigit = '0';
+            char mostFrequentDigit = '0'; // Default starting value
 
             s_outputMessage.Append("The most frequent digit is: ");
 
-            for (char digit = '0'; digit <= '9'; digit++)
+            for (char digit = '0'; digit <= '9'; digit++) // Check frequency for each digit
             {
                 int currentDigitCount = 0;
 

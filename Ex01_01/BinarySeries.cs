@@ -5,12 +5,12 @@ namespace Ex01_01
 {
     internal class BinarySeries
     {
-        private static Number[] s_InputNumbers = new Number[Program.k_NumberOfInputs];
-        private static int s_TotalOnesAcrossAllNumbers = 0;
-        private static Number s_NumberWithLongestOnesSequence = null;
-        private static Number s_NumberWithMostOnes = null;
+        private static Number[] s_InputNumbers = new Number[Program.k_NumberOfInputs]; // Stores user input numbers
+        private static int s_TotalOnesAcrossAllNumbers = 0; // Sum of all '1' bits across all numbers
+        private static Number s_NumberWithLongestOnesSequence = null; // Number with the longest sequence of consecutive '1's
+        private static Number s_NumberWithMostOnes = null; // Number with the highest total '1's
 
-        
+
         public static void Run()
         {
             string startingMessage = string.Format("Please enter {0} binary numbers, each with exactly {1} digits:", Program.k_NumberOfInputs, Program.k_BinaryNumberLength);
@@ -88,34 +88,34 @@ namespace Ex01_01
             int currentConsecutiveOnes = 0;
             int totalOnes = 0;
             int transitionCount = 0;
-            int previousBit = -1;
-            int currentPower = 0;
+            int previousBit = -1; // -1 indicates no previous bit yet
+            int currentPower = 0; // Position power for decimal calculation
 
             for (int i = 0; i < Program.k_BinaryNumberLength; i++)
             {
-                int currentBit = remainingBinaryValue % 10;
+                int currentBit = remainingBinaryValue % 10; // Get the last digit
 
                 if (currentBit == 1)
                 {
-                    decimalValue += (int)Math.Pow(2, currentPower);
+                    decimalValue += (int)Math.Pow(2, currentPower); // Update decimal value by adding 2^currentPower
                     currentConsecutiveOnes++;
                     totalOnes++;
 
-                    maxConsecutiveOnes = Math.Max(maxConsecutiveOnes, currentConsecutiveOnes);
+                    maxConsecutiveOnes = Math.Max(maxConsecutiveOnes, currentConsecutiveOnes); // Track max consecutive ones
                 }
                 else
                 {
-                    currentConsecutiveOnes = 0;
+                    currentConsecutiveOnes = 0; // Reset consecutive ones counter
                 }
 
                 if (previousBit != -1 && previousBit != currentBit)
                 {
-                    transitionCount++;
+                    transitionCount++; // Count a transition if the bit changed
                 }
 
                 previousBit = currentBit;
-                remainingBinaryValue /= 10;
-                currentPower++;
+                remainingBinaryValue /= 10; // Remove last digit
+                currentPower++; // Move to next bit position
             }
 
             io_Number.m_decimalFormat = decimalValue;

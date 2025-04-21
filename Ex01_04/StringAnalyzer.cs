@@ -6,7 +6,9 @@ namespace Ex01_04
 {
     internal class StringAnalyzer
     {
-        protected const int k_InputLength = 12;
+        protected const int k_InputLength = 12; // Required input length
+
+        // Analysis results
         protected static bool s_IsPalindrome = true;
         protected static bool s_IsStringOnlyDigits = false;
         protected static bool s_IsNumberDividedBy3 = false;
@@ -32,7 +34,7 @@ namespace Ex01_04
                 }
                 else
                 {
-                    isValid = true;
+                    isValid = true; // Input length is correct
                 }
 
             } while (!isValid);
@@ -42,20 +44,20 @@ namespace Ex01_04
 
         public static void StartAnalyzeInput(string i_Input)
         {
-            isPalindrome(i_Input);
+            isPalindrome(i_Input); // Check if the input is a palindrome
 
-            s_IsStringOnlyDigits = i_Input.All(char.IsDigit);
-            s_IsStringOnlyLetter = i_Input.All(char.IsLetter);
+            s_IsStringOnlyDigits = i_Input.All(char.IsDigit); // Check if all characters are digits
+            s_IsStringOnlyLetter = i_Input.All(char.IsLetter); // Check if all characters are letters
 
             if (s_IsStringOnlyDigits == true)
             {
                 long stringToNumber = long.Parse(i_Input);
-                s_IsNumberDividedBy3 = (stringToNumber % 3 == 0);
+                s_IsNumberDividedBy3 = (stringToNumber % 3 == 0); // Check divisibility by 3
             }
             else if (s_IsStringOnlyLetter)
             {
-                s_NumberOfCapitalLetters = i_Input.Count(char.IsUpper);
-                isAscendingAlphabeticalOrder(i_Input);
+                s_NumberOfCapitalLetters = i_Input.Count(char.IsUpper); // Count capital letters
+                isAscendingAlphabeticalOrder(i_Input); // Check if letters are in ascending order
             }
         }
 
@@ -124,13 +126,13 @@ namespace Ex01_04
         {
             if (i_InputString.Length <= 1)
             {
-                s_IsPalindrome = true;
+                s_IsPalindrome = true; // Empty or single character is a palindrome
                 return;
             }
 
             if (isSameLetter(i_InputString[0], i_InputString[i_InputString.Length - 1]) == false)
             {
-                s_IsPalindrome = false;
+                s_IsPalindrome = false; // Mismatch found, not a palindrome
                 return;
             }
 
@@ -151,19 +153,19 @@ namespace Ex01_04
                 isSameLetter = false;
             }
 
-            return isSameLetter;
+            return isSameLetter; // Compare letters ignoring case
         }
 
         private static void isAscendingAlphabeticalOrder(string i_InputString)
         {
             s_AscendingAlphabeticalOrder = true;
-            i_InputString = i_InputString.ToLower();
+            i_InputString = i_InputString.ToLower(); // Ignore case
 
             for (int i = 1; i < i_InputString.Length; i++)
             {
                 if (i_InputString[i] < i_InputString[i - 1])
                 {
-                    s_AscendingAlphabeticalOrder = false;
+                    s_AscendingAlphabeticalOrder = false; // Not ascending
                     break;
                 }
             }
