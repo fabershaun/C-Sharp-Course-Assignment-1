@@ -7,7 +7,7 @@ namespace Ex01_03
     {
         public static void Main()
         {
-            Tree.PrintTree(Tree.GetInputFromUser());
+            Ex01_02.Program.PrintTree(Ex01_02.Program.GetInputFromUser());
         }
     }
 }
